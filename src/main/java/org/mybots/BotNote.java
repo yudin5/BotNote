@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public class BotNote extends TelegramLongPollingBot {
 
     private static final String CONFIG_FILE_NAME = "config.txt";
-    private static String BOT_TOKEN = null;
+    private static String BOT_TOKEN = "";
 
     @Override
     public String getBotUsername() {
