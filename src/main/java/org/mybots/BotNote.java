@@ -60,7 +60,8 @@ public class BotNote extends TelegramLongPollingBot {
         System.out.printf("%s (id = %s) написал: %s%n", user.getFirstName(), user.getId(), msgText);
 
         if (msgText.startsWith(WRITE)) {
-            saveToNotes(userId, msgText);
+            saveToNotes(msgText);
+            sendText(userId, "Saved");
             return;
         }
 
@@ -99,7 +100,7 @@ public class BotNote extends TelegramLongPollingBot {
         return lines;
     }
 
-    private void saveToNotes(Long userId, String msgText) {
+    private void saveToNotes(String msgText) {
         ClassLoader ctxLoader = Thread.currentThread().getContextClassLoader();
         InputStream inputStream = ctxLoader.getResourceAsStream(CONFIG_FILE_NAME);
         if (inputStream == null) {
@@ -120,8 +121,6 @@ public class BotNote extends TelegramLongPollingBot {
         CompletableFuture.runAsync(() -> writeNewLineToFile(pathToFileNotesResources + NOTES_FILE_NAME, msgText));
         // запись в файл notes, лежащий в уже сгенерированном архиве - target/classes
         CompletableFuture.runAsync(() -> writeNewLineToFile(pathToFileNotesCompiled + NOTES_FILE_NAME, msgText));
-
-        sendText(userId, "Done");
     }
 
     private void writeNewLineToFile(String fullPathToFile, String text) {
