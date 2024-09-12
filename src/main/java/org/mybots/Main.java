@@ -9,6 +9,6 @@ public class Main {
         TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
         BotNote botNote = new BotNote();
         botsApi.registerBot(botNote);
-        System.out.printf("Бот %s запущен \n", botNote.getBotUsername());
+        System.out.printf("Бот запущен. Вы можете найти его в поиске Telegram по имени '%s'\n", botNote.getBotUsername());
     }
 }
